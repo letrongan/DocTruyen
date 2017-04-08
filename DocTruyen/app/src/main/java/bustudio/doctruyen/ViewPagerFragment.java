@@ -3,6 +3,7 @@ package bustudio.doctruyen;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -21,12 +22,13 @@ import animation.ReaderViewPagerTransformer;
  * Created by TieuHoan on 08/04/2017.
  */
 
-public class ViewPagerFragment extends Fragment  implements ViewPager.OnPageChangeListener{
+public class ViewPagerFragment extends Fragment implements ViewPager.OnPageChangeListener {
     private ArrayList<Fragment> fragments;
     private ArrayList<String> fragmentTitles;
     private TabLayoutAdapter tabLayoutAdapter;
     private ViewPager viewPager;
     private SmartTabLayout smartTabLayout;
+    public static Fragment kimDungFragment, favoriteFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,38 +45,39 @@ public class ViewPagerFragment extends Fragment  implements ViewPager.OnPageChan
     }
 
     public void initTabLayout(View view) {
+
+
         fragments = new ArrayList<>();
         fragmentTitles = new ArrayList<>();
 
-
-        fragments.add(MainActivity.kimDungFragment);
-        fragmentTitles.add("Kim Dung");
-
+        kimDungFragment = new KimDungFragment();
+        favoriteFragment = new FavoriteFragment();
+        addFragmentTabLayout(kimDungFragment, "Kim Dung");
+        addFragmentTabLayout(favoriteFragment, "Yêu Thích");
 
 
         tabLayoutAdapter = new TabLayoutAdapter(getChildFragmentManager(), fragments, fragmentTitles);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         viewPager.setAdapter(tabLayoutAdapter);
         viewPager.setPageTransformer(true, new ReaderViewPagerTransformer(ReaderViewPagerTransformer.TransformType.ZOOM));
+
         smartTabLayout = (SmartTabLayout) view.findViewById(R.id.tabLayout);
         smartTabLayout.setOnPageChangeListener(this);
-
         smartTabLayout.setViewPager(viewPager);
 
         // set màu cho tab đầu tiên
         ((TextView) smartTabLayout.getTabAt(0)).setTextColor(Color.BLACK);
     }
 
+    public void addFragmentTabLayout(Fragment fragmentTab, String nameTab) {
+        fragments.add(fragmentTab);
+        fragmentTitles.add(nameTab);
+    }
+
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        for (int i = 0; i < fragments.size(); i++) {
-            TextView view = (TextView) smartTabLayout.getTabAt(i);
-            view.setTextColor(Color.WHITE);
-        }
-
-        TextView view1 = (TextView) smartTabLayout.getTabAt(position);
-        view1.setTextColor(Color.BLACK);
-
+        setColorTab(position);
     }
 
     @Override
@@ -85,5 +88,15 @@ public class ViewPagerFragment extends Fragment  implements ViewPager.OnPageChan
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    public  void setColorTab(int position){
+        for (int i = 0; i < fragments.size(); i++) {
+            TextView view = (TextView) smartTabLayout.getTabAt(i);
+            view.setTextColor(Color.WHITE);
+        }
+
+        TextView view1 = (TextView) smartTabLayout.getTabAt(position);
+        view1.setTextColor(Color.BLACK);
     }
 }

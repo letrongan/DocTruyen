@@ -1,17 +1,21 @@
 package bustudio.doctruyen;
 
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import ulti.FragmentControl;
 
-public class MainActivity extends AppCompatActivity {
-    public static KimDungFragment kimDungFragment;
+public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
+
     private Toolbar toolbar;
     private MenuItem search, micro;
 
@@ -24,17 +28,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initFragment() {
-        kimDungFragment = new KimDungFragment();
-
-        FragmentControl fragmentControl = new FragmentControl();
-        fragmentControl.goToFragmentNoAddBackStack(R.id.frameLayout, new ViewPagerFragment(), MainActivity.this);
-
+        // set toolbar
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         toolbar.setTitle("Đọc truyện");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().getDisplayOptions();
+
+
+
+
+        FragmentControl fragmentControl = new FragmentControl();
+        fragmentControl.goToFragmentNoAddBackStack(R.id.frameLayout, new ViewPagerFragment(), MainActivity.this);
+
+
     }
 
     @Override
@@ -47,8 +55,31 @@ public class MainActivity extends AppCompatActivity {
         micro = menu.findItem(R.id.menu);
 
         //event
-        
+        search.setOnMenuItemClickListener(this);
+        micro.setOnMenuItemClickListener(this);
+
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu: {
+                //Todo everything
+
+                Toast.makeText(MainActivity.this, "Click Micro", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.searchView: {
+                //Todo everything
+
+                Toast.makeText(MainActivity.this, "Click SearchView", Toast.LENGTH_SHORT).show();
+                break;
+            }
+        }
+
+
+        return true;
     }
 }
