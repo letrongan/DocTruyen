@@ -1,6 +1,7 @@
 package bustudio.doctruyen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -70,7 +71,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
         btnLogin = (TextView) view.findViewById(R.id.btnLogin);
         btnLogin_Face = (TextView) view.findViewById(R.id.btnLogin_Face);
         btnRegister = (TextView) view.findViewById(R.id.btnRegister);
-        if (userName.isEmpty() == false || password.isEmpty() == false){
+        if (userName.isEmpty() == false || password.isEmpty() == false) {
             edtUser.setText(userName);
             edtPass.setText(password);
             if (isCB.isEmpty()) {
@@ -111,6 +112,9 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
                         if (ten.equals(arrUser.get(i).getUserName().toString())
                                 && pass.equals(arrUser.get(i).getPassWord().toString())) {
                             Toast.makeText(context, "Dang nhap thanh cong", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context, MainActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
                             return;
 
                         }

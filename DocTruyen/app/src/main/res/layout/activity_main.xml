@@ -6,5 +6,33 @@
     android:layout_height="match_parent"
     tools:context="bustudio.doctruyen.MainActivity">
 
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#03A9F4"
+            android:fitsSystemWindows="true"
+            android:minHeight="?attr/actionBarSize"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"></android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/idAppBar"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>
