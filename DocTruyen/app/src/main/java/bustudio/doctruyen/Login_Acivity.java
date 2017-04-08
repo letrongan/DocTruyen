@@ -32,6 +32,8 @@ public class Login_Acivity extends AppCompatActivity {
 
     }
 
+
+    //fragment
     public void initFragment() {
         FragmentControl fragmentControl = new FragmentControl();
         fragmentControl.goToFragmentAddBackStack(R.id.frameLogIn, new LogInFragment(), Login_Acivity.this, getClass().getName());
