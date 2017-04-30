@@ -22,7 +22,7 @@ public class Acount_DataBase  {
     public static final String PATH = Environment.getDataDirectory() +
             "/data/bustudio.doctruyen/databases/Account.sqlite";
     private Context context;
-    private SQLiteDatabase database;
+    private SQLiteDatabase  database;
     public static final String TABLE_NAME = "ACCOUNT";
     public static final String USER = "User";
     public static final String PASS = "Pass";

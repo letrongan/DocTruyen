@@ -1,15 +1,12 @@
 package bustudio.doctruyen;
 
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import ulti.FragmentControl;
@@ -35,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().getDisplayOptions();
-
-
 
 
         FragmentControl fragmentControl = new FragmentControl();
