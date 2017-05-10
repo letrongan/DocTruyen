@@ -16,12 +16,13 @@ import java.util.ArrayList;
 import adapter.ChapAdapter;
 import model.Chap;
 import model.Truyen;
+import ulti.FragmentControl;
 
 /**
  * Created by TieuHoan on 25/04/2017.
  */
 
-public class ChapFragment extends Fragment {
+public class ChapFragment extends Fragment implements ChapAdapter.OnClickItemRecycleView {
 
     private ArrayList<Chap> chaps;
     private Truyen truyen;
@@ -34,15 +35,16 @@ public class ChapFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
-        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         Bundle bundle = getArguments();
         if (bundle != null) {
             chaps = (ArrayList<Chap>) bundle.getSerializable("CHAPS");
             truyen = (Truyen) bundle.getSerializable("TRUYEN");
-            Log.e("img" , truyen.getImgThumb());
+            Log.e("img", truyen.getImgThumb());
             Log.e("chap size", String.valueOf(chaps.size()));
 
         }
+
+
     }
 
 
@@ -50,6 +52,7 @@ public class ChapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chap_fragment, null, false);
+        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         bindView(view);
         setUpRecyclerViewChap();
 
@@ -60,10 +63,27 @@ public class ChapFragment extends Fragment {
         chapAdapter = new ChapAdapter(chaps, context, truyen);
         recyclerViewChap.setLayoutManager(layoutManager);
         recyclerViewChap.setAdapter(chapAdapter);
+        chapAdapter.setOnClickItemRecycleView(this);
+
     }
 
     public void bindView(View view) {
         recyclerViewChap = (RecyclerView) view.findViewById(R.id.recycleViewChap);
+    }
+
+    @Override
+    public void OnClick(View view, int position) {
+        Chap chap = chaps.get(position);
+        Log.e("chap content", chap.getContent());
+
+        //chuyển dữ liệu sang đọc chap
+        Bundle bundle = new Bundle();
+        ViewPagerChapFragment viewPagerChapFragment = new ViewPagerChapFragment();
+        bundle.putSerializable("READ_CHAPS", chaps);
+        bundle.putSerializable("READ_CHAP", chaps.get(position));
+        bundle.putInt("POSITION", position);
+        viewPagerChapFragment.setArguments(bundle);
+        FragmentControl.goToFragmentAddBackStack(R.id.frameLayout, viewPagerChapFragment, context, getClass().getName());
 
     }
 }

@@ -8,13 +8,24 @@ import java.io.Serializable;
 
 public class Truyen implements Serializable {
     private String name, describe, imgThumb;
-    private int id;
+    private int id, viewCount;
+    private int favorite;
 
-    public Truyen(String name, String describe, int id, String imgThumb) {
+    public Truyen(String name, String describe, String imgThumb, int id, int viewCount, int favorite) {
         this.name = name;
         this.describe = describe;
-        this.id = id;
         this.imgThumb = imgThumb;
+        this.id = id;
+        this.favorite = favorite;
+        this.viewCount = viewCount;
+    }
+
+    public int getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(int favorite) {
+        this.favorite = favorite;
     }
 
     public String getImgThumb() {
@@ -43,6 +54,14 @@ public class Truyen implements Serializable {
 
     public String getDescribe() {
         return describe;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
     }
 
     public void setDescribe(String describe) {

@@ -9,11 +9,14 @@
         <TextView
             android:id="@+id/nameChap"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:gravity="center_vertical"
+            android:layout_height="70dp"
             android:text="Chương 1:"
             android:maxLines="2"
-            android:textSize="22dp" />
-
+            android:textSize="20dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000"
+            />
 
 </LinearLayout>

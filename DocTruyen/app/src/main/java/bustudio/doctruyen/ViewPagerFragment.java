@@ -3,7 +3,6 @@ package bustudio.doctruyen;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -28,7 +27,7 @@ public class ViewPagerFragment extends Fragment implements ViewPager.OnPageChang
     private TabLayoutAdapter tabLayoutAdapter;
     private ViewPager viewPager;
     private SmartTabLayout smartTabLayout;
-    public static Fragment kimDungFragment, favoriteFragment;
+    private Fragment kimDungFragment, favoriteFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +59,7 @@ public class ViewPagerFragment extends Fragment implements ViewPager.OnPageChang
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         viewPager.setAdapter(tabLayoutAdapter);
         viewPager.setPageTransformer(true, new ReaderViewPagerTransformer(ReaderViewPagerTransformer.TransformType.ZOOM));
+        viewPager.setOffscreenPageLimit(0);
 
         smartTabLayout = (SmartTabLayout) view.findViewById(R.id.tabLayout);
         smartTabLayout.setOnPageChangeListener(this);
@@ -90,7 +90,8 @@ public class ViewPagerFragment extends Fragment implements ViewPager.OnPageChang
 
     }
 
-    public  void setColorTab(int position){
+
+    public void setColorTab(int position) {
         for (int i = 0; i < fragments.size(); i++) {
             TextView view = (TextView) smartTabLayout.getTabAt(i);
             view.setTextColor(Color.WHITE);

@@ -26,6 +26,11 @@ public class KimDungAdapter extends RecyclerView.Adapter<KimDungAdapter.KimDungH
     private ArrayList<Truyen> truyens;
     private Context context;
     private boolean grid;
+    private ImageView imageFavorite;
+
+    public ImageView getImageFavorite() {
+        return imageFavorite;
+    }
 
     public KimDungAdapter(ArrayList<Truyen> truyens, Context context, boolean grid) {
         this.truyens = truyens;
@@ -59,8 +64,17 @@ public class KimDungAdapter extends RecyclerView.Adapter<KimDungAdapter.KimDungH
                 .centerCrop()
                 .crossFade()
                 .into(kimDungHolder.imageTruyen);
-        if (!grid){
+        if (!grid) {
             kimDungHolder.webDescrible.loadData(truyen.getDescribe(), "text/html; charset=utf-8", "utf-8");
+        }
+
+        if (grid) {
+            kimDungHolder.viewCount.setText(String.valueOf(truyen.getViewCount()));
+            if (truyen.getFavorite() == 1) {
+                kimDungHolder.favorite.setImageResource(R.drawable.ic_favorite);
+            } else {
+                kimDungHolder.favorite.setImageResource(R.drawable.ic_not_favorite);
+            }
         }
     }
 
@@ -74,19 +88,27 @@ public class KimDungAdapter extends RecyclerView.Adapter<KimDungAdapter.KimDungH
         ImageView imageTruyen;
         TextView nameTruyen;
         WebView webDescrible;
+        TextView viewCount;
+        ImageView favorite;
 
 
         public KimDungHolder(View itemView) {
             super(itemView);
 
-            if(grid){
+            if (grid) {
                 imageTruyen = (ImageView) itemView.findViewById(R.id.imgThumb);
                 nameTruyen = (TextView) itemView.findViewById(R.id.tenTruyen);
-            }else {
+                viewCount = (TextView) itemView.findViewById(R.id.viewCount);
+                favorite = (ImageView) itemView.findViewById(R.id.favorite);
+                favorite.setOnClickListener(this);
 
-                imageTruyen = (ImageView) itemView.findViewById(R.id.imageTruyen );
+                imageFavorite = favorite;
+
+            } else {
+                imageTruyen = (ImageView) itemView.findViewById(R.id.imageTruyen);
                 nameTruyen = (TextView) itemView.findViewById(R.id.nameTruyen);
                 webDescrible = (WebView) itemView.findViewById(R.id.webDescrible);
+                webDescrible.setOnClickListener(this);
 
             }
 
@@ -96,7 +118,13 @@ public class KimDungAdapter extends RecyclerView.Adapter<KimDungAdapter.KimDungH
 
         @Override
         public void onClick(View v) {
-            onClickItemRecycleView.OnClick(v, getPosition());
+
+            if (v.getId() != R.id.favorite) {
+                onClickItemRecycleView.OnClick(v, getPosition());
+            } else {
+                onClickItemRecycleView.OnClickFavorite(v, getPosition(), getImageFavorite());
+            }
+
         }
     }
 
@@ -108,9 +136,20 @@ public class KimDungAdapter extends RecyclerView.Adapter<KimDungAdapter.KimDungH
 
     public interface OnClickItemRecycleView {
         void OnClick(View view, int position);
+
+        void OnClickFavorite(View view, int position, ImageView imageFavorite);
+
     }
 
+
     public OnClickItemRecycleView onClickItemRecycleView;
+
+
+    public void swap(ArrayList<Truyen> truyens) {
+        this.truyens.clear();
+        this.truyens.addAll(truyens);
+        notifyDataSetChanged();
+    }
 
 
 }

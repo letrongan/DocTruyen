@@ -2,6 +2,7 @@ package bustudio.doctruyen;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import ulti.FragmentControl;
 
 public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
+
 
     private Toolbar toolbar;
     private MenuItem search, micro;
@@ -76,5 +78,19 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
 
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
+        if (fragment instanceof ViewPagerChapFragment) {
+
+//            Log.e("tieuhoan", String.valueOf(ViewPagerChapFragment.currentPosition));
+//            int idchap = ViewPagerChapFragment.chaps.get(ViewPagerChapFragment.currentPosition).getId();
+//            Log.e("tieuhoan", "idchap" + idchap);
+
+        }
+        super.onBackPressed();
+
     }
 }

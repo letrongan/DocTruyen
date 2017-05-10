@@ -27,11 +27,24 @@ public class TabLayoutAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+
+
         return fragments.get(position);
+
     }
 
     @Override
     public int getCount() {
         return fragments.size();
     }
+
+//    @Override
+//    public int getItemPosition(Object object) {
+//        KimDungFragment f = (KimDungFragment) object;
+//        if (f != null) {
+//            Log.e("tieuhoan" ,"notifyDataSetChanged");
+//            notifyDataSetChanged();
+//        }
+//        return super.getItemPosition(object);
+//    }
 }

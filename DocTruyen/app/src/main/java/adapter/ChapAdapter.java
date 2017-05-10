@@ -99,13 +99,30 @@ public class ChapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    class ChapHolder extends RecyclerView.ViewHolder {
+    class ChapHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView nameChap;
 
         public ChapHolder(View itemView) {
             super(itemView);
             nameChap = (TextView) itemView.findViewById(R.id.nameChap);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onClickItemRecycleView.OnClick(v, getPosition());
+        }
+    }
+
+    public OnClickItemRecycleView onClickItemRecycleView;
+
+    public void setOnClickItemRecycleView(OnClickItemRecycleView onClickItemRecycleView) {
+        this.onClickItemRecycleView = onClickItemRecycleView;
+    }
+
+    public interface OnClickItemRecycleView {
+        void OnClick(View view, int position);
+
     }
 }
