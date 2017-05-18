@@ -100,4 +100,14 @@ public class ViewPagerFragment extends Fragment implements ViewPager.OnPageChang
         TextView view1 = (TextView) smartTabLayout.getTabAt(position);
         view1.setTextColor(Color.BLACK);
     }
+
+    public ArrayList<Fragment> getFragments() {
+        return fragments;
+    }
+
+    public void setFragments(ArrayList<Fragment> fragments) {
+        this.fragments = fragments;
+    }
+
+
 }

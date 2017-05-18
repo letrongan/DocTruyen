@@ -91,6 +91,13 @@ public class KimDungAdapter extends RecyclerView.Adapter<KimDungAdapter.KimDungH
         TextView viewCount;
         ImageView favorite;
 
+        public ImageView getFavorite() {
+            return favorite;
+        }
+
+        public void setFavorite(ImageView favorite) {
+            this.favorite = favorite;
+        }
 
         public KimDungHolder(View itemView) {
             super(itemView);
@@ -122,7 +129,7 @@ public class KimDungAdapter extends RecyclerView.Adapter<KimDungAdapter.KimDungH
             if (v.getId() != R.id.favorite) {
                 onClickItemRecycleView.OnClick(v, getPosition());
             } else {
-                onClickItemRecycleView.OnClickFavorite(v, getPosition(), getImageFavorite());
+                onClickItemRecycleView.OnClickFavorite(v, getPosition(), getFavorite());
             }
 
         }

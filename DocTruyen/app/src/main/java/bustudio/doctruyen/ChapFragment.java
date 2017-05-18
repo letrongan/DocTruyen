@@ -43,8 +43,6 @@ public class ChapFragment extends Fragment implements ChapAdapter.OnClickItemRec
             Log.e("chap size", String.valueOf(chaps.size()));
 
         }
-
-
     }
 
 
@@ -55,6 +53,7 @@ public class ChapFragment extends Fragment implements ChapAdapter.OnClickItemRec
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         bindView(view);
         setUpRecyclerViewChap();
+
 
         return view;
     }
@@ -74,7 +73,6 @@ public class ChapFragment extends Fragment implements ChapAdapter.OnClickItemRec
     @Override
     public void OnClick(View view, int position) {
         Chap chap = chaps.get(position);
-        Log.e("chap content", chap.getContent());
 
         //chuyển dữ liệu sang đọc chap
         Bundle bundle = new Bundle();
@@ -82,8 +80,18 @@ public class ChapFragment extends Fragment implements ChapAdapter.OnClickItemRec
         bundle.putSerializable("READ_CHAPS", chaps);
         bundle.putSerializable("READ_CHAP", chaps.get(position));
         bundle.putInt("POSITION", position);
+        bundle.putFloat("SCROLL", 0);
         viewPagerChapFragment.setArguments(bundle);
         FragmentControl.goToFragmentAddBackStack(R.id.frameLayout, viewPagerChapFragment, context, getClass().getName());
 
+    }
+
+
+    public ArrayList<Chap> getChaps() {
+        return chaps;
+    }
+
+    public void setChaps(ArrayList<Chap> chaps) {
+        this.chaps = chaps;
     }
 }

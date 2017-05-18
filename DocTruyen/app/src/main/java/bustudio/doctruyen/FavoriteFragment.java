@@ -38,14 +38,8 @@ public class FavoriteFragment extends KimDungFragment {
 
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void OnClickFavorite(View view, int position, ImageView imageFavorite) {
         super.OnClickFavorite(view, position, imageFavorite);
         kimDungAdapter.swap(readDataBase.getFavoriteTruyen());
-
     }
 }

@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +13,16 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-import customview.WebViewCus;
 import model.Chap;
 
 /**
  * Created by TieuHoan on 30/04/2017.
  */
 
-public class ReadChapFragment extends Fragment {
+public class ReadChapFragment extends Fragment{
 
     private Chap chap;
-    private WebViewCus webViewCus;
+    private TextView textView;
     private TextView tenChap;
 
     @Override
@@ -32,38 +33,50 @@ public class ReadChapFragment extends Fragment {
 
     public ReadChapFragment(Chap chap) {
         this.chap = chap;
+
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.read_chap_fragment, null, false);
+        final View view = inflater.inflate(R.layout.read_chap_fragment, null, false);
         bindView(view);
 
-        webViewCus.loadData(chap.getContent(), "text/html; charset=utf-8", "utf-8");
-
-//        webView.setBackgroundResource(R.drawable.read);
-//        webView.setBackgroundColor(0x00000000);
+        textView.setText(Html.fromHtml(chap.getContent()));
         tenChap.setText(chap.getNameChap());
         Random rnd = new Random();
         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
         tenChap.setTextColor(color);
+
+        final NestedScrollView anout = (NestedScrollView) view.findViewById(R.id.scroll);
+
+//        anout.post(new Runnable() {
+//                       public void run() {
+//                           if ((float) ViewPagerChapFragment.scroll < 1) {
+//                               anout.smoothScrollTo(0, (int) ViewPagerChapFragment.scroll * anout.getChildAt(0).getBottom());
+//                           }
+//                           else {
+//                               anout.smoothScrollTo(0, (int) ViewPagerChapFragment.scroll);
+//                           }
+//                       }
+//                   }
+//        );
+        anout.scrollTo(0, (int) ViewPagerChapFragment.scroll + 1000);
+
 
         return view;
     }
 
     public void bindView(View view) {
 
-        webViewCus = (WebViewCus) view.findViewById(R.id.webViewReadChap);
+        textView = (TextView) view.findViewById(R.id.textViewReadChap);
         tenChap = (TextView) view.findViewById(R.id.chap);
     }
 
 
-    public WebViewCus getWebViewCus() {
-        return webViewCus;
-    }
 
-    public void setWebViewCus(WebViewCus webViewCus) {
-        this.webViewCus = webViewCus;
+    public String getTextChap() {
+        return textView.getText().toString();
     }
 }

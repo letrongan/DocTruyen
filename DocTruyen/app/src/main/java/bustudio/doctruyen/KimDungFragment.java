@@ -28,7 +28,7 @@ import ulti.ReadDataBase;
 public class KimDungFragment extends Fragment implements KimDungAdapter.OnClickItemRecycleView, View.OnClickListener {
     public FloatingActionButton floatingActionButton;
     public boolean grid;
-    public ReadDataBase readDataBase;
+    public static ReadDataBase readDataBase;
     public Context context;
     public ArrayList<Truyen> truyens;
     public RecyclerView recyclerViewKimDung;
@@ -97,11 +97,11 @@ public class KimDungFragment extends Fragment implements KimDungAdapter.OnClickI
     public void eventFAB() {
         if (!grid) {
             recyclerViewKimDung.setLayoutManager(new GridLayoutManager(context, columGridView));
-            floatingActionButton.setImageResource(R.drawable.grid);
+            floatingActionButton.setImageResource(R.drawable.list);
             grid = true;
         } else {
             recyclerViewKimDung.setLayoutManager(centerZoomLayoutManager);
-            floatingActionButton.setImageResource(R.drawable.list);
+            floatingActionButton.setImageResource(R.drawable.grid);
             grid = false;
         }
         kimDungAdapter = new KimDungAdapter(truyens, context, grid);
@@ -135,7 +135,7 @@ public class KimDungFragment extends Fragment implements KimDungAdapter.OnClickI
     }
 
 
-    static int favorite;
+    static int favorite, favorite2;
 
     @Override
     public void OnClickFavorite(View view, int position, ImageView imageFavorite) {
@@ -145,17 +145,29 @@ public class KimDungFragment extends Fragment implements KimDungAdapter.OnClickI
         favorite = truyen.getFavorite();
 
         if (favorite == 0) {
-            readDataBase.addFavorite(1, String.valueOf(truyen.getId()));
             favorite = 1;
+            truyen.setFavorite(favorite);
+            readDataBase.addFavorite(favorite, String.valueOf(truyen.getId()));
             imageFavorite.setImageResource(R.drawable.ic_favorite);
-//            Log.e("set", "favorite");
+
+
+
         } else {
-            readDataBase.addFavorite(0, String.valueOf(truyen.getId()));
             favorite = 0;
+            truyen.setFavorite(favorite);
+            readDataBase.addFavorite(favorite, String.valueOf(truyen.getId()));
             imageFavorite.setImageResource(R.drawable.ic_not_favorite);
-//            Log.e("set", "not favorite");
         }
 
 
+
+    }
+
+    public ArrayList<Truyen> getTruyens() {
+        return truyens;
+    }
+
+    public void setTruyens(ArrayList<Truyen> truyens) {
+        this.truyens = truyens;
     }
 }

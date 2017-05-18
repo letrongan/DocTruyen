@@ -31,6 +31,40 @@ public class ReadDataBase {
     private String NAME_TABLE_KIM_DUNG = "kimdung", NAME_TABLE_ST_KIM_DUNG = "st_kimdung";
 
 
+    public ArrayList<Truyen> searchTruyen(String query) {
+        openDataBase();
+        ArrayList<Truyen> truyens = new ArrayList<>();
+
+        String[] tableColumns = new String[]{
+                ID, NAME
+        };
+        String whereClause = NAME + " LIKE '%=?%'";
+        String[] whereArgs = new String[]{
+               query
+        };
+
+        Cursor cursor = sqLiteDatabase.query(NAME_TABLE_KIM_DUNG, tableColumns, whereClause, whereArgs, null, null, null);
+        int indexID = cursor.getColumnIndex(ID);
+        int indexNAME = cursor.getColumnIndex(NAME);
+
+        cursor.moveToFirst();
+
+
+        while (!cursor.isAfterLast()) {
+            Integer id = cursor.getInt(indexID);
+            String name = cursor.getString(indexNAME);
+
+            Truyen truyen = new Truyen();
+            truyen.setId(id);
+            truyen.setName(name);
+            truyens.add(truyen);
+            cursor.moveToNext();
+        }
+        closeDataBase();
+        return truyens;
+
+    }
+
     public ArrayList<Chap> getAllChap(String idQuery) {
 
         openDataBase();

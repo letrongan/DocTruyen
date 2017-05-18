@@ -11,6 +11,9 @@ public class Truyen implements Serializable {
     private int id, viewCount;
     private int favorite;
 
+    public Truyen() {
+    }
+
     public Truyen(String name, String describe, String imgThumb, int id, int viewCount, int favorite) {
         this.name = name;
         this.describe = describe;

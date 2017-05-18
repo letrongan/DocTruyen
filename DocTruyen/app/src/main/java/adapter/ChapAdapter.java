@@ -28,7 +28,7 @@ public class ChapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<Chap> chaps;
     private Context context;
     private Truyen truyen;
-    public final int TYPE_HEADER_CHAP = 0, TYPE_RECYCLE_VIEW = 1;
+    public static final int TYPE_HEADER_CHAP = 0, TYPE_RECYCLE_VIEW = 1;
 
 
     public ChapAdapter(ArrayList<Chap> chaps, Context context, Truyen truyen) {
@@ -46,12 +46,11 @@ public class ChapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (viewType == TYPE_HEADER_CHAP) {
             view = layoutInflater.inflate(R.layout.header_chap, null, false);
             return new HeaderChapHolder(view);
-        } else if (viewType == TYPE_RECYCLE_VIEW) {
+        } else {
             view = layoutInflater.inflate(R.layout.item_chap, null, false);
             return new ChapHolder(view);
         }
 
-        throw new RuntimeException("there is no type that matches the type " + viewType + " + make sure your using types correctly");
     }
 
     @Override
@@ -77,7 +76,7 @@ public class ChapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         if (position == TYPE_HEADER_CHAP) return TYPE_HEADER_CHAP;
-        return TYPE_RECYCLE_VIEW;
+        else return TYPE_RECYCLE_VIEW;
 
     }
 
